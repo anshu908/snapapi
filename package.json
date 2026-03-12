@@ -1,0 +1,12 @@
+{
+  "name": "snapdownloader",
+  "version": "1.0.0",
+  "description": "Snapchat Video Downloader",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.3.2"
+  },
+  "scripts": {
+    "dev": "netlify dev"
+  }
+}
