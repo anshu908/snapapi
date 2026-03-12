@@ -5,7 +5,6 @@ const menuToggle = document.getElementById('menuToggle');
 const navMenu = document.querySelector('.nav-menu');
 const navLinks = document.querySelectorAll('.nav-link');
 const sections = document.querySelectorAll('.section');
-const tabBtns = document.querySelectorAll('.tab-btn');
 const downloadBtn = document.getElementById('downloadBtn');
 const snapUrl = document.getElementById('snap-url');
 const loadingOverlay = document.getElementById('loadingOverlay');
@@ -13,6 +12,9 @@ const resultCard = document.getElementById('resultCard');
 const closeResult = document.getElementById('closeResult');
 const downloadVideoBtn = document.getElementById('downloadVideoBtn');
 const copyLinkBtn = document.getElementById('copyLinkBtn');
+const videoThumbnail = document.getElementById('videoThumbnail');
+const videoTitle = document.getElementById('videoTitle');
+const videoDuration = document.getElementById('videoDuration');
 const testApiBtn = document.getElementById('testApiBtn');
 const testApiUrl = document.getElementById('testApiUrl');
 const apiResponse = document.getElementById('apiResponse');
@@ -21,26 +23,17 @@ const copyEndpoint = document.getElementById('copyEndpoint');
 const copyCodeBtns = document.querySelectorAll('.copy-code-btn');
 const toastContainer = document.getElementById('toastContainer');
 
-// Custom Cursor
-const cursor = document.querySelector('.cursor');
-const cursorFollower = document.querySelector('.cursor-follower');
-
-if (cursor && cursorFollower) {
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
-        cursorFollower.style.transform = `translate(${e.clientX - 10}px, ${e.clientY - 10}px)`;
-    });
-
-    document.addEventListener('mousedown', () => {
-        cursor.style.transform += ' scale(0.8)';
-        cursorFollower.style.transform += ' scale(1.5)';
-    });
-
-    document.addEventListener('mouseup', () => {
-        cursor.style.transform = cursor.style.transform.replace(' scale(0.8)', '');
-        cursorFollower.style.transform = cursorFollower.style.transform.replace(' scale(1.5)', '');
-    });
-}
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Check for saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        body.className = savedTheme;
+        themeToggle.innerHTML = savedTheme === 'dark-theme' 
+            ? '<i class="fas fa-moon"></i>' 
+            : '<i class="fas fa-sun"></i>';
+    }
+});
 
 // Theme Toggle
 themeToggle.addEventListener('click', () => {
@@ -53,6 +46,7 @@ themeToggle.addEventListener('click', () => {
         body.classList.add('dark-theme');
         themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
     }
+    localStorage.setItem('theme', body.className);
 });
 
 // Mobile Menu Toggle
@@ -95,24 +89,9 @@ navLinks.forEach(link => {
     });
 });
 
-// Tabs
-tabBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const tab = btn.dataset.tab;
-        
-        tabBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        
-        document.querySelectorAll('.tab-content').forEach(content => {
-            content.classList.remove('active');
-        });
-        
-        document.getElementById(`${tab}-tab`).classList.add('active');
-    });
-});
-
 // Statistics Counter
 const statNumbers = document.querySelectorAll('.stat-number');
+let statsAnimated = false;
 
 const animateStats = () => {
     statNumbers.forEach(stat => {
@@ -135,10 +114,8 @@ const animateStats = () => {
     });
 };
 
-// Trigger stats animation when home section is visible
+// Trigger stats animation
 const homeSection = document.getElementById('home');
-let statsAnimated = false;
-
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting && !statsAnimated) {
@@ -168,7 +145,7 @@ downloadBtn.addEventListener('click', async () => {
     loadingOverlay.style.display = 'flex';
     
     try {
-        const response = await fetch(`/.netlify/functions/snap-down?url=${encodeURIComponent(url)}`);
+        const response = await fetch(`/api/snap-down?url=${encodeURIComponent(url)}`);
         const data = await response.json();
         
         setTimeout(() => {
@@ -176,10 +153,10 @@ downloadBtn.addEventListener('click', async () => {
             
             if (data.success) {
                 // Update result card
-                document.getElementById('videoThumbnail').src = data.thumbnail;
-                document.getElementById('videoTitle').textContent = data.title;
-                document.getElementById('videoDuration').textContent = data.duration;
-                downloadVideoBtn.href = data.videoUrl;
+                videoThumbnail.src = data.thumbnail;
+                videoTitle.textContent = data.title;
+                videoDuration.textContent = data.duration;
+                downloadVideoBtn.href = data.downloadUrl;
                 
                 resultCard.classList.add('show');
                 resultCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -188,7 +165,7 @@ downloadBtn.addEventListener('click', async () => {
             } else {
                 showToast(data.error || 'Failed to process video', 'error');
             }
-        }, 2000);
+        }, 1500);
         
     } catch (error) {
         loadingOverlay.style.display = 'none';
@@ -205,7 +182,7 @@ closeResult.addEventListener('click', () => {
 copyLinkBtn.addEventListener('click', () => {
     const videoUrl = downloadVideoBtn.href;
     navigator.clipboard.writeText(videoUrl);
-    showToast('Video link copied to clipboard!', 'success');
+    showToast('Download link copied to clipboard!', 'success');
 });
 
 // API Testing
@@ -219,10 +196,10 @@ testApiBtn.addEventListener('click', async () => {
     
     apiResponse.classList.add('show');
     const responseBody = apiResponse.querySelector('.response-body');
-    responseBody.textContent = 'Testing API...';
+    responseBody.textContent = 'Fetching video data...';
     
     try {
-        const response = await fetch(`/.netlify/functions/snap-down?url=${encodeURIComponent(url)}`);
+        const response = await fetch(`/api/snap-down?url=${encodeURIComponent(url)}`);
         const data = await response.json();
         
         responseBody.textContent = JSON.stringify(data, null, 2);
@@ -242,7 +219,7 @@ clearResponse.addEventListener('click', () => {
 
 // Copy Endpoint
 copyEndpoint.addEventListener('click', () => {
-    const endpoint = '/.netlify/functions/snap-down?url=';
+    const endpoint = '/api/snap-down?url=';
     navigator.clipboard.writeText(endpoint);
     showToast('Endpoint copied to clipboard!', 'success');
 });
@@ -318,95 +295,10 @@ inputs.forEach(input => {
     });
 });
 
-// Particles Background
-function createParticles() {
-    const particlesContainer = document.querySelector('.particles');
-    if (!particlesContainer) return;
-    
-    for (let i = 0; i < 50; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: ${Math.random() * 3}px;
-            height: ${Math.random() * 3}px;
-            background: rgba(255, 255, 255, ${Math.random() * 0.3});
-            border-radius: 50%;
-            top: ${Math.random() * 100}%;
-            left: ${Math.random() * 100}%;
-            animation: floatParticle ${5 + Math.random() * 10}s linear infinite;
-        `;
-        particlesContainer.appendChild(particle);
-    }
-}
-
-// Particle Animation Keyframes
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes floatParticle {
-        from {
-            transform: translate(0, 0);
-        }
-        to {
-            transform: translate(${Math.random() * 200 - 100}px, ${Math.random() * 200 - 100}px);
-        }
-    }
-`;
-document.head.appendChild(style);
-
-createParticles();
-
-// Lazy Loading Images
-const images = document.querySelectorAll('img[data-src]');
-const imageObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src;
-            img.classList.add('loaded');
-            imageObserver.unobserve(img);
-        }
-    });
-});
-
-images.forEach(img => imageObserver.observe(img));
-
-// Parallax Effect
-document.addEventListener('mousemove', (e) => {
-    const orbs = document.querySelectorAll('.gradient-orb');
-    const x = e.clientX / window.innerWidth;
-    const y = e.clientY / window.innerHeight;
-    
-    orbs.forEach((orb, index) => {
-        const speed = (index + 1) * 20;
-        orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
-    });
-});
-
-// Scroll to Top Button (Optional)
+// Scroll to Top Button
 const scrollTopBtn = document.createElement('button');
 scrollTopBtn.className = 'scroll-top';
 scrollTopBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
-scrollTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    border: none;
-    border-radius: 50%;
-    color: var(--dark);
-    font-size: 1.2rem;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-    transition: var(--transition);
-    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.3);
-`;
-
 document.body.appendChild(scrollTopBtn);
 
 scrollTopBtn.addEventListener('click', () => {
@@ -422,21 +314,4 @@ window.addEventListener('scroll', () => {
     } else {
         scrollTopBtn.style.display = 'none';
     }
-});
-
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        body.className = savedTheme;
-        themeToggle.innerHTML = savedTheme === 'dark-theme' 
-            ? '<i class="fas fa-moon"></i>' 
-            : '<i class="fas fa-sun"></i>';
-    }
-    
-    // Save theme preference
-    themeToggle.addEventListener('click', () => {
-        localStorage.setItem('theme', body.className);
-    });
 });
