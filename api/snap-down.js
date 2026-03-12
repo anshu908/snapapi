@@ -1,44 +1,67 @@
-// API endpoint using the working service
-export default async function handler(req, res) {
-    // Enable CORS
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+// Netlify Function - CommonJS format
+const fetch = require('node-fetch');
 
-    // Handle preflight requests
-    if (req.method === 'OPTIONS') {
-        res.status(200).end();
-        return;
+exports.handler = async function(event, context) {
+    // Set CORS headers
+    const headers = {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Allow-Methods': 'GET, OPTIONS',
+        'Content-Type': 'application/json'
+    };
+
+    // Handle preflight OPTIONS request
+    if (event.httpMethod === 'OPTIONS') {
+        return {
+            statusCode: 200,
+            headers,
+            body: ''
+        };
     }
 
     // Only allow GET requests
-    if (req.method !== 'GET') {
-        return res.status(405).json({
-            success: false,
-            error: 'Method not allowed'
-        });
+    if (event.httpMethod !== 'GET') {
+        return {
+            statusCode: 405,
+            headers,
+            body: JSON.stringify({
+                success: false,
+                error: 'Method not allowed'
+            })
+        };
     }
 
     try {
-        const { url } = req.query;
+        // Get URL from query parameters
+        const { url } = event.queryStringParameters || {};
 
         if (!url) {
-            return res.status(400).json({
-                success: false,
-                error: 'URL parameter is required'
-            });
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: 'URL parameter is required'
+                })
+            };
         }
 
         // Validate URL
         if (!url.includes('snapchat.com')) {
-            return res.status(400).json({
-                success: false,
-                error: 'Invalid Snapchat URL'
-            });
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({
+                    success: false,
+                    error: 'Invalid Snapchat URL'
+                })
+            };
         }
 
         // Call the working API
         const apiUrl = `https://snapapi.asapiservices.workers.dev/api/snap-down?url=${encodeURIComponent(url)}`;
+        
+        console.log('Fetching from:', apiUrl); // For debugging
         
         const response = await fetch(apiUrl, {
             headers: {
@@ -53,21 +76,29 @@ export default async function handler(req, res) {
         const data = await response.json();
 
         // Return the formatted response
-        return res.status(200).json({
-            success: true,
-            thumbnail: data.thumbnail,
-            downloadUrl: data.downloadUrl,
-            mediaList: data.mediaList || [],
-            title: 'Snapchat Video',
-            duration: '00:15'
-        });
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+                success: true,
+                thumbnail: data.thumbnail,
+                downloadUrl: data.downloadUrl,
+                mediaList: data.mediaList || [],
+                title: 'Snapchat Video',
+                duration: '00:15'
+            })
+        };
 
     } catch (error) {
-        console.error('API Error:', error);
+        console.error('Function error:', error);
         
-        return res.status(500).json({
-            success: false,
-            error: 'Failed to process video. Please try again.'
-        });
+        return {
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({
+                success: false,
+                error: 'Failed to process video. Please try again.'
+            })
+        };
     }
-}
+};
