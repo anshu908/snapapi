@@ -3,89 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SnapDownloader - Download Snapchat Videos & Stories</title>
+    <title>SnapDownloader Pro - Ultimate Snapchat Video Downloader</title>
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <meta name="description" content="Free Snapchat video downloader. Download Snapchat stories, spotlight videos, and memories easily.">
+    <meta name="description" content="Professional Snapchat video downloader. Download Snapchat stories, spotlight videos, and memories in HD quality.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body class="dark-theme">
+    <!-- Premium Cursor Effect -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
     <!-- Animated Background -->
-    <div class="animated-bg">
-        <div class="gradient-sphere"></div>
-        <div class="gradient-sphere-2"></div>
+    <div class="background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+        <div class="particles"></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar glass-effect">
         <div class="nav-container">
             <div class="logo">
-                <i class="fas fa-download"></i>
-                <span>SnapDownloader</span>
+                <div class="logo-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <span class="logo-text">Snap<span>Downloader</span><span class="pro-badge">PRO</span></span>
             </div>
+            
             <ul class="nav-menu">
-                <li><a href="#home" class="active">Home</a></li>
-                <li><a href="#downloader">Downloader</a></li>
-                <li><a href="#api">API</a></li>
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#downloader" class="nav-link">Downloader</a></li>
+                <li><a href="#api" class="nav-link">API</a></li>
+                <li><a href="#pricing" class="nav-link">Pricing</a></li>
             </ul>
-            <div class="theme-toggle">
-                <i class="fas fa-moon"></i>
+
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
     <main>
-        <!-- Home Section -->
+        <!-- Hero Section -->
         <section id="home" class="section active">
-            <div class="container">
-                <div class="hero-content">
-                    <h1 class="animate-text">Download <span class="gradient-text">Snapchat</span> Videos Instantly</h1>
-                    <p class="animate-text-delay">Save Snapchat stories, spotlight videos, and memories with one click. Free, fast, and secure.</p>
-                    
-                    <div class="features-grid">
-                        <div class="feature-card animate-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <h3>Lightning Fast</h3>
-                            <p>Download videos in seconds with our optimized servers</p>
+            <div class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="badge animate-float">
+                            <i class="fas fa-crown"></i>
+                            <span>Premium Snapchat Downloader</span>
                         </div>
-                        <div class="feature-card animate-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <h3>100% Secure</h3>
-                            <p>Your privacy is our priority. No data stored</p>
-                        </div>
-                        <div class="feature-card animate-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-infinity"></i>
-                            </div>
-                            <h3>Unlimited Downloads</h3>
-                            <p>Download as many videos as you want, absolutely free</p>
-                        </div>
-                        <div class="feature-card animate-card">
-                            <div class="feature-icon">
-                                <i class="fas fa-mobile-alt"></i>
-                            </div>
-                            <h3>Mobile Friendly</h3>
-                            <p>Works perfectly on all devices and screen sizes</p>
-                        </div>
-                    </div>
+                        
+                        <h1 class="hero-title">
+                            Download Any
+                            <span class="gradient-text">Snapchat Video</span>
+                            Instantly
+                        </h1>
+                        
+                        <p class="hero-subtitle">
+                            Save Snapchat stories, spotlight videos, and memories in original quality. 
+                            Fast, secure, and absolutely free.
+                        </p>
 
-                    <div class="stats-container">
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="50000">0</span>
-                            <span class="stat-label">Downloads</span>
+                        <div class="hero-cta">
+                            <a href="#downloader" class="btn btn-primary">
+                                <span>Start Downloading</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#api" class="btn btn-outline">
+                                <i class="fas fa-code"></i>
+                                <span>API Access</span>
+                            </a>
                         </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="15000">0</span>
-                            <span class="stat-label">Happy Users</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" data-target="99">0</span>
-                            <span class="stat-label">Success Rate%</span>
+
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="500000">0</span>
+                                <span class="stat-label">Downloads</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="150000">0</span>
+                                <span class="stat-label">Happy Users</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="99.9">0</span>
+                                <span class="stat-label">Success Rate</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number" data-target="24">0</span>
+                                <span class="stat-label">Support</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -95,63 +111,117 @@
         <!-- Downloader Section -->
         <section id="downloader" class="section">
             <div class="container">
-                <h2 class="section-title">Download Your Snapchat Video</h2>
-                <p class="section-subtitle">Paste the Snapchat video link below and click download</p>
-
-                <div class="downloader-container">
-                    <div class="input-wrapper">
-                        <i class="fas fa-link"></i>
-                        <input type="url" id="snap-url" placeholder="Enter Snapchat video URL (e.g., https://www.snapchat.com/spotlight/...)" required>
-                    </div>
-                    <button id="download-btn" class="download-btn">
-                        <span>Download</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </button>
+                <div class="section-header">
+                    <h2 class="section-title">Video Downloader</h2>
+                    <p class="section-subtitle">Paste your Snapchat video link below and download in seconds</p>
                 </div>
 
-                <div class="how-it-works">
-                    <h3>How It Works</h3>
-                    <div class="steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h4>Copy the Link</h4>
-                                <p>Copy the Snapchat video URL from the app</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h4>Paste & Download</h4>
-                                <p>Paste the link above and click download</p>
-                            </div>
-                        </div>
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h4>Save Video</h4>
-                                <p>Save the video to your device</p>
-                            </div>
+                <div class="downloader-card glass-effect">
+                    <div class="downloader-header">
+                        <div class="header-tabs">
+                            <button class="tab-btn active" data-tab="url">
+                                <i class="fas fa-link"></i>
+                                URL Download
+                            </button>
+                            <button class="tab-btn" data-tab="username">
+                                <i class="fas fa-user"></i>
+                                Username
+                            </button>
                         </div>
                     </div>
+
+                    <div class="downloader-body">
+                        <div class="tab-content active" id="url-tab">
+                            <div class="input-group">
+                                <i class="fas fa-link input-icon"></i>
+                                <input type="url" id="snap-url" placeholder="https://www.snapchat.com/spotlight/..." class="glass-input">
+                                <button class="btn btn-primary" id="downloadBtn">
+                                    <span>Download Video</span>
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="tab-content" id="username-tab">
+                            <div class="input-group">
+                                <i class="fas fa-user input-icon"></i>
+                                <input type="text" id="username" placeholder="Enter Snapchat username" class="glass-input">
+                                <button class="btn btn-primary" id="searchBtn">
+                                    <span>Search Stories</span>
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="downloader-footer">
+                        <div class="features-mini">
+                            <div class="feature-mini">
+                                <i class="fas fa-bolt"></i>
+                                <span>Lightning Fast</span>
+                            </div>
+                            <div class="feature-mini">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>100% Secure</span>
+                            </div>
+                            <div class="feature-mini">
+                                <i class="fas fa-infinity"></i>
+                                <span>Unlimited</span>
+                            </div>
+                            <div class="feature-mini">
+                                <i class="fas fa-hd"></i>
+                                <span>HD Quality</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Loading Animation -->
-                <div class="loading-overlay" id="loading">
-                    <div class="loader"></div>
-                    <p>Processing your video...</p>
+                <!-- Loading Overlay -->
+                <div class="loading-overlay" id="loadingOverlay">
+                    <div class="loading-content">
+                        <div class="spinner"></div>
+                        <h3>Processing Your Video</h3>
+                        <p>Please wait while we fetch your video...</p>
+                        <div class="loading-progress">
+                            <div class="progress-bar"></div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- Result Container -->
-                <div class="result-container" id="result">
-                    <div class="video-info">
-                        <i class="fas fa-check-circle"></i>
-                        <h3>Video Ready!</h3>
-                        <p>Your video has been processed successfully</p>
-                        <a id="download-link" class="download-result-btn" download>
-                            <i class="fas fa-download"></i>
-                            Download Video
-                        </a>
+                <!-- Result Card -->
+                <div class="result-card glass-effect" id="resultCard">
+                    <div class="result-header">
+                        <div class="result-badge success">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Video Ready!</span>
+                        </div>
+                        <button class="close-btn" id="closeResult">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="result-body">
+                        <div class="video-preview">
+                            <img src="" alt="Video thumbnail" id="videoThumbnail" class="thumbnail">
+                            <div class="video-info">
+                                <h4 id="videoTitle">Snapchat Video</h4>
+                                <div class="video-meta">
+                                    <span><i class="far fa-clock"></i> <span id="videoDuration">00:15</span></span>
+                                    <span><i class="fas fa-eye"></i> HD Quality</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="download-options">
+                            <a href="#" class="btn btn-success" id="downloadVideoBtn" download>
+                                <i class="fas fa-download"></i>
+                                <span>Download Video</span>
+                            </a>
+                            <button class="btn btn-outline" id="copyLinkBtn">
+                                <i class="fas fa-link"></i>
+                                <span>Copy Link</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -160,55 +230,162 @@
         <!-- API Section -->
         <section id="api" class="section">
             <div class="container">
-                <h2 class="section-title">API Documentation</h2>
-                <p class="section-subtitle">Integrate SnapDownloader into your applications</p>
+                <div class="section-header">
+                    <h2 class="section-title">API Documentation</h2>
+                    <p class="section-subtitle">Integrate SnapDownloader into your applications with our simple REST API</p>
+                </div>
 
-                <div class="api-container">
-                    <div class="api-card">
-                        <div class="api-header">
-                            <span class="api-method">GET</span>
-                            <span class="api-endpoint">/api/snap-down?url=</span>
+                <div class="api-grid">
+                    <div class="api-card glass-effect">
+                        <div class="api-card-header">
+                            <div class="api-method get">GET</div>
+                            <div class="api-endpoint">/api/snap-down</div>
+                            <button class="api-copy" id="copyEndpoint">
+                                <i class="fas fa-copy"></i>
+                            </button>
                         </div>
-                        <div class="api-body">
-                            <h4>Description</h4>
+                        
+                        <div class="api-card-body">
                             <p>Download Snapchat videos programmatically</p>
                             
                             <h4>Parameters</h4>
-                            <div class="param">
-                                <code>url</code>
-                                <span class="param-desc">Snapchat video URL (required)</span>
+                            <div class="params-list">
+                                <div class="param-item">
+                                    <code>url</code>
+                                    <span class="param-type">string</span>
+                                    <span class="param-desc">Snapchat video URL (required)</span>
+                                </div>
                             </div>
-                            
+
                             <h4>Example Request</h4>
                             <div class="code-block">
-                                <pre>
-fetch('https://your-site.netlify.app/api/snap-down?url=https://www.snapchat.com/spotlight/W7_EDlXWTBiXAEEniNoMPwAAYaXlpZnh2b2tnAZzb_v5RAZzb_v41AAAAAQ')
+                                <pre><code>fetch('https://your-api.netlify.app/api/snap-down?url=YOUR_SNAPCHAT_URL')
     .then(response => response.json())
-    .then(data => console.log(data));
-                                </pre>
-                                <button class="copy-btn"><i class="fas fa-copy"></i></button>
+    .then(data => console.log(data));</code></pre>
+                                <button class="copy-code-btn">
+                                    <i class="fas fa-copy"></i>
+                                </button>
                             </div>
 
                             <h4>Response Format</h4>
                             <div class="code-block">
-                                <pre>
-{
+                                <pre><code>{
     "success": true,
     "videoUrl": "https://cdn.snapchat.com/video.mp4",
-    "thumbnail": "https://cdn.snapchat.com/thumbnail.jpg",
+    "thumbnail": "https://cdn.snapchat.com/thumb.jpg",
     "title": "Video Title",
-    "duration": "00:15"
-}
-                                </pre>
+    "duration": "00:15",
+    "quality": "HD"
+}</code></pre>
                             </div>
-
-                            <h4>Try It Yourself</h4>
-                            <div class="api-tester">
-                                <input type="url" id="api-url" placeholder="Enter Snapchat URL" class="api-input">
-                                <button id="test-api" class="api-test-btn">Test API</button>
-                            </div>
-                            <div id="api-response" class="api-response"></div>
                         </div>
+                    </div>
+
+                    <div class="api-card glass-effect">
+                        <div class="api-card-header">
+                            <h3>API Tester</h3>
+                        </div>
+                        
+                        <div class="api-card-body">
+                            <div class="api-tester">
+                                <div class="input-group">
+                                    <i class="fas fa-link input-icon"></i>
+                                    <input type="url" id="testApiUrl" placeholder="Enter Snapchat URL" class="glass-input">
+                                </div>
+                                
+                                <button class="btn btn-primary" id="testApiBtn">
+                                    <i class="fas fa-play"></i>
+                                    <span>Test API</span>
+                                </button>
+                                
+                                <div class="api-response" id="apiResponse">
+                                    <div class="response-header">
+                                        <span>Response</span>
+                                        <button class="clear-btn" id="clearResponse">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                    <pre class="response-body"></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Simple Pricing</h2>
+                    <p class="section-subtitle">Choose the plan that fits your needs</p>
+                </div>
+
+                <div class="pricing-grid">
+                    <div class="pricing-card glass-effect">
+                        <div class="pricing-badge">Free</div>
+                        <div class="pricing-header">
+                            <h3>Basic</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">0</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> 50 downloads/day</li>
+                                <li><i class="fas fa-check"></i> SD Quality</li>
+                                <li><i class="fas fa-check"></i> Basic Support</li>
+                                <li><i class="fas fa-check"></i> API Access (limited)</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline w-100">Get Started</button>
+                    </div>
+
+                    <div class="pricing-card glass-effect popular">
+                        <div class="pricing-badge">Popular</div>
+                        <div class="pricing-header">
+                            <h3>Pro</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">9.99</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Unlimited downloads</li>
+                                <li><i class="fas fa-check"></i> HD Quality</li>
+                                <li><i class="fas fa-check"></i> Priority Support</li>
+                                <li><i class="fas fa-check"></i> Full API Access</li>
+                                <li><i class="fas fa-check"></i> Bulk Download</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-primary w-100">Start Pro Trial</button>
+                    </div>
+
+                    <div class="pricing-card glass-effect">
+                        <div class="pricing-badge">Enterprise</div>
+                        <div class="pricing-header">
+                            <h3>Business</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">49.99</span>
+                                <span class="period">/month</span>
+                            </div>
+                        </div>
+                        <div class="pricing-features">
+                            <ul>
+                                <li><i class="fas fa-check"></i> Everything in Pro</li>
+                                <li><i class="fas fa-check"></i> Team Access</li>
+                                <li><i class="fas fa-check"></i> API Keys</li>
+                                <li><i class="fas fa-check"></i> Analytics</li>
+                                <li><i class="fas fa-check"></i> Custom Integration</li>
+                            </ul>
+                        </div>
+                        <button class="btn btn-outline w-100">Contact Sales</button>
                     </div>
                 </div>
             </div>
@@ -216,38 +393,66 @@ fetch('https://your-site.netlify.app/api/snap-down?url=https://www.snapchat.com/
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
+            <div class="footer-grid">
+                <div class="footer-col">
                     <div class="footer-logo">
                         <i class="fas fa-download"></i>
                         <span>SnapDownloader</span>
                     </div>
-                    <p>Free Snapchat video downloader. Save videos easily and securely.</p>
+                    <p>Professional Snapchat video downloader trusted by millions worldwide.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
+                
+                <div class="footer-col">
+                    <h4>Product</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
                         <li><a href="#downloader">Downloader</a></li>
                         <li><a href="#api">API</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#">Features</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
+                
+                <div class="footer-col">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Guides</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">API Status</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-col">
                     <h4>Legal</h4>
                     <ul>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy</a></li>
+                        <li><a href="#">Terms</a></li>
+                        <li><a href="#">Security</a></li>
+                        <li><a href="#">Cookies</a></li>
                     </ul>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2024 SnapDownloader. All rights reserved.</p>
+                <p>&copy; 2024 SnapDownloader Pro. All rights reserved.</p>
+                <div class="footer-badges">
+                    <span><i class="fas fa-shield-alt"></i> SSL Secure</span>
+                    <span><i class="fas fa-bolt"></i> 99.9% Uptime</span>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- Toast Notification -->
+    <div class="toast-container" id="toastContainer"></div>
 
     <script src="js/main.js"></script>
 </body>
