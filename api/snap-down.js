@@ -1,88 +1,73 @@
-// Netlify Function format (CommonJS)
-exports.handler = async function(event, context) {
-    // Set CORS headers
-    const headers = {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
-        'Content-Type': 'application/json'
-    };
+// API endpoint using the working service
+export default async function handler(req, res) {
+    // Enable CORS
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
-    // Handle preflight OPTIONS request
-    if (event.httpMethod === 'OPTIONS') {
-        return {
-            statusCode: 200,
-            headers,
-            body: ''
-        };
+    // Handle preflight requests
+    if (req.method === 'OPTIONS') {
+        res.status(200).end();
+        return;
     }
 
     // Only allow GET requests
-    if (event.httpMethod !== 'GET') {
-        return {
-            statusCode: 405,
-            headers,
-            body: JSON.stringify({
-                success: false,
-                error: 'Method not allowed'
-            })
-        };
+    if (req.method !== 'GET') {
+        return res.status(405).json({
+            success: false,
+            error: 'Method not allowed'
+        });
     }
 
     try {
-        // Get URL from query parameters
-        const { url } = event.queryStringParameters || {};
+        const { url } = req.query;
 
         if (!url) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'URL parameter is required'
-                })
-            };
+            return res.status(400).json({
+                success: false,
+                error: 'URL parameter is required'
+            });
         }
 
         // Validate URL
         if (!url.includes('snapchat.com')) {
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({
-                    success: false,
-                    error: 'Invalid Snapchat URL'
-                })
-            };
+            return res.status(400).json({
+                success: false,
+                error: 'Invalid Snapchat URL'
+            });
         }
 
-        // For demo purposes, return mock data
-        // In production, replace this with actual API call
-        const mockResponse = {
-            success: true,
-            videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-            thumbnail: 'https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=400',
-            title: 'Snapchat Video',
-            duration: '00:15',
-            quality: 'HD'
-        };
+        // Call the working API
+        const apiUrl = `https://snapapi.asapiservices.workers.dev/api/snap-down?url=${encodeURIComponent(url)}`;
+        
+        const response = await fetch(apiUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+            }
+        });
 
-        return {
-            statusCode: 200,
-            headers,
-            body: JSON.stringify(mockResponse)
-        };
+        if (!response.ok) {
+            throw new Error(`API responded with status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        // Return the formatted response
+        return res.status(200).json({
+            success: true,
+            thumbnail: data.thumbnail,
+            downloadUrl: data.downloadUrl,
+            mediaList: data.mediaList || [],
+            title: 'Snapchat Video',
+            duration: '00:15'
+        });
 
     } catch (error) {
-        console.error('Function error:', error);
+        console.error('API Error:', error);
         
-        return {
-            statusCode: 500,
-            headers,
-            body: JSON.stringify({
-                success: false,
-                error: 'Internal server error'
-            })
-        };
+        return res.status(500).json({
+            success: false,
+            error: 'Failed to process video. Please try again.'
+        });
     }
-};
+}
